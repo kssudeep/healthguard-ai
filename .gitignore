@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.egg-info/
+.DS_Store
+/tmp/
+ml/rag/indexes/
+ml/vision/weights/
+*.pth
+.github/workflows/
