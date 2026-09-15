@@ -66,7 +66,7 @@ with col1:
             st.info("DICOM file detected — will be processed with pydicom")
         else:
             img = Image.open(uploaded_file)
-            st.image(img, caption="Uploaded X-ray", use_column_width=True)
+            st.image(img, caption="Uploaded X-ray", use_container_width=True)
 
 with col2:
     st.subheader("📝 Patient Information")

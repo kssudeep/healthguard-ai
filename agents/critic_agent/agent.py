@@ -124,7 +124,7 @@ def llm_hallucination_check(
     """
     try:
         llm = ChatGroq(
-            model="llama-3.3-70b-versatile",
+            model="qwen/qwen3.8-27b",
             groq_api_key=settings.GROQ_API_KEY,
             temperature=0.1,
             max_tokens=400,

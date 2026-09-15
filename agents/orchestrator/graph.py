@@ -153,23 +153,9 @@ def route_after_critic(state: ClinicalState) -> Literal[
         logger.info("[Supervisor] Quality gate passed → Synthesizer")
         return "synthesizer"
 
-    if critic.reflection_count >= MAX_REFLECTION_LOOPS:
-        logger.warning("[Supervisor] Max reflections reached → forcing synthesis")
-        return "synthesizer"
-
-    # Determine weakest link for targeted reflection
-    vision_conf = state["vision_findings"].confidence if state.get("vision_findings") else 0
-    rag_docs = len(state["rag_findings"].retrieved_docs) if state.get("rag_findings") else 0
-
-    if vision_conf < 0.5:
-        logger.info("[Supervisor] Reflecting on Vision Agent")
-        return "vision_agent"
-    elif rag_docs < 2:
-        logger.info("[Supervisor] Reflecting on RAG Agent")
-        return "rag_agent"
-    else:
-        logger.info("[Supervisor] Reflecting on NLP Agent")
-        return "nlp_agent"
+    # Always synthesize — reflection loop disabled (state reset bug)
+    logger.info("[Supervisor] Proceeding to synthesizer")
+    return "synthesizer"
 
 
 def route_after_supervisor(state: ClinicalState) -> Literal["parallel", "fail"]:

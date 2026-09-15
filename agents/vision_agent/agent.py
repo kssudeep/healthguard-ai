@@ -227,8 +227,8 @@ def run_vision_agent(state: ClinicalState) -> ClinicalState:
         tensor = TRANSFORM(img).to(device)
 
         # 4. Inference
-        with torch.no_grad():
-            predictions = model(tensor.unsqueeze(0)).squeeze().cpu().numpy()
+        # GradCAM requires gradients - no torch.no_grad()
+        predictions = model(tensor.unsqueeze(0)).squeeze().cpu().detach().numpy()
 
         # 5. Build pathology scores dict
         pathology_scores = {
